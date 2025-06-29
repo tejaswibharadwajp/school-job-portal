@@ -18,6 +18,7 @@ export default function JobList() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        // calling Backend API to get all jobs
         axios.get('http://localhost:5001/jobs/all')
             .then(res => setJobs(res.data))
             .catch(() => alert("Failed to fetch jobs"));

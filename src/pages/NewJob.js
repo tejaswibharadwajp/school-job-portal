@@ -50,7 +50,6 @@ export default function JobPostForm() {
 
                 <Box component="form" noValidate autoComplete="off" sx={{mt: 3}}>
                     <Grid container spacing={3}>
-                        {/* Company Details */}
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
@@ -71,7 +70,6 @@ export default function JobPostForm() {
                             />
                         </Grid>
 
-                        {/* Job Information */}
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
@@ -99,7 +97,6 @@ export default function JobPostForm() {
                             </TextField>
                         </Grid>
 
-                        {/* Job Settings */}
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
@@ -134,7 +131,6 @@ export default function JobPostForm() {
                             </TextField>
                         </Grid>
 
-                        {/* Description */}
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
@@ -147,7 +143,6 @@ export default function JobPostForm() {
                             />
                         </Grid>
 
-                        {/* Posted Date (optional field) */}
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 fullWidth
@@ -160,7 +155,6 @@ export default function JobPostForm() {
                             />
                         </Grid>
 
-                        {/* Submit */}
                         <Grid item xs={12}>
                             <Button variant="contained" fullWidth onClick={handleSubmit}>
                                 Submit Job

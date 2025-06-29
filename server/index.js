@@ -11,8 +11,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/auth', require('./routes/auth'));
-app.use('/jobs', require('./routes/jobs'));
+app.use('/auth', require('./routes/auth')); // to check the user credentials
+app.use('/jobs', require('./routes/jobs')); // to fetch the job list
 app.use('/applications', require('./routes/applicationRoutes'));
 app.use('/approval', require('./routes/approval'));
 app.use('/resume', require('./routes/resume'));

@@ -17,11 +17,11 @@ router.post('/parse', upload.single('resume'), async (req, res) => {
         const text = pdf.text;
 
         const response = {
-            firstName: guess(text, /Name[:\-]?\s*(\w+)/i),
-            lastName: guess(text, /Last\s*Name[:\-]?\s*(\w+)/i),
-            email: guess(text, /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+)/),
-            phone: guess(text, /(\+?\d[\d\s\-\(\)]{7,})/),
-            address: guess(text, /Address[:\-]?\s*(.*)/i),
+            firstName: getData(text, /Name[:\-]?\s*(\w+)/i),
+            lastName: getData(text, /Last\s*Name[:\-]?\s*(\w+)/i),
+            email: getData(text, /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+)/),
+            phone: getData(text, /(\+?\d[\d\s\-\(\)]{7,})/),
+            address: getData(text, /Address[:\-]?\s*(.*)/i),
             skills: extractSkills(text),
             experience: extractExperience(text),
             educationStatus: text.includes('Currently studying') || text.includes('Pursuing')
@@ -36,7 +36,7 @@ router.post('/parse', upload.single('resume'), async (req, res) => {
     }
 });
 
-function guess(text, regex) {
+function getData(text, regex) {
     const match = text.match(regex);
     return match ? match[1].trim() : '';
 }

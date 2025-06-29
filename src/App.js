@@ -11,11 +11,11 @@ function App() {
     <BrowserRouter>
         <Header />
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/jobs" element={<JobList />} />
-        <Route path="/new" element={<NewJob />} />
-        <Route path="/approve" element={<ApproveJobs />} />
-        <Route path="/apply/:jobId" element={<ApplyPage />} />
+        <Route path="/login" element={<LoginPage />} /> common login staff, students, companies
+        <Route path="/jobs" element={<JobList />} /> studnets
+        <Route path="/new" element={<NewJob />} /> company new job
+        <Route path="/approve" element={<ApproveJobs />} /> staff to approve new jobs
+        <Route path="/apply/:jobId" element={<ApplyPage />} /> link to apply
       </Routes>
     </BrowserRouter>
   );
