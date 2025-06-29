@@ -4,6 +4,7 @@ import JobList from './pages/JobList';
 import NewJob from './pages/NewJob';
 import ApproveJobs from './pages/ApproveJobs';
 import Header from "./components/Header/Header";
+import ApplyPage from "./pages/JobApplication";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/jobs" element={<JobList />} />
         <Route path="/new" element={<NewJob />} />
         <Route path="/approve" element={<ApproveJobs />} />
+        <Route path="/apply/:jobId" element={<ApplyPage />} />
       </Routes>
     </BrowserRouter>
   );

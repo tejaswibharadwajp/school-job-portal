@@ -9,11 +9,9 @@ const corsOptions = {
     credentials: true
 };
 
-// ✅ Apply CORS to this router
 router.use(cors(corsOptions));
 router.use(express.json());
 
-// GET all jobs
 router.get('/all', async (req, res) => {
     try {
         db.query('SELECT * FROM jobs WHERE approved = true ORDER BY posted_date DESC', (err, results) => {

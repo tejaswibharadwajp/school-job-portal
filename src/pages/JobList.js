@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import {
     Card,
     CardContent,
@@ -8,18 +7,25 @@ import {
     Grid,
     Typography,
     Chip,
-    Box
+    Box,
+    Button
 } from '@mui/material';
-
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function JobList() {
     const [jobs, setJobs] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get('http://localhost:5001/jobs/all')
             .then(res => setJobs(res.data))
             .catch(() => alert("Failed to fetch jobs"));
     }, []);
+
+    const handleApply = (jobId) => {
+        navigate(`/apply/${jobId}`);
+    };
 
     return (
         <Container sx={{ mt: 4 }}>
@@ -30,7 +36,7 @@ export default function JobList() {
             <Grid container spacing={3}>
                 {jobs.map((job) => (
                     <Grid item xs={12} md={6} lg={4} key={job.id}>
-                        <Card sx={{ height: '100%' }}>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                             {job.company_logo && (
                                 <CardMedia
                                     component="img"
@@ -39,11 +45,9 @@ export default function JobList() {
                                     alt={`${job.company_name} logo`}
                                 />
                             )}
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    {job.job_title}
-                                </Typography>
-                                <Typography variant="subtitle1" color="text.secondary">
+                            <CardContent sx={{ flexGrow: 1 }}>
+                                <Typography variant="h6">{job.job_title}</Typography>
+                                <Typography variant="subtitle2" color="text.secondary">
                                     {job.company_name}
                                 </Typography>
 
@@ -53,7 +57,7 @@ export default function JobList() {
                                     <Chip label={job.location_type} />
                                 </Box>
 
-                                <Typography variant="body2" sx={{ mb: 1 }}>
+                                <Typography variant="body2" sx={{ mb: 2 }}>
                                     {job.description.length > 150
                                         ? job.description.slice(0, 150) + '...'
                                         : job.description}
@@ -63,6 +67,16 @@ export default function JobList() {
                                     Posted on: {new Date(job.posted_date).toLocaleDateString()}
                                 </Typography>
                             </CardContent>
+
+                            <Box sx={{ p: 2 }}>
+                                <Button
+                                    fullWidth
+                                    variant="contained"
+                                    onClick={() => handleApply(job.id)}
+                                >
+                                    Apply
+                                </Button>
+                            </Box>
                         </Card>
                     </Grid>
                 ))}

@@ -29,7 +29,7 @@ export default function ApproveJobs() {
   const handleApprove = async (jobId) => {
     try {
       await axios.post(`http://localhost:5001/approval/${jobId}/approve`, {}, {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
-      fetchUnapprovedJobs(); // refresh list
+      fetchUnapprovedJobs();
     } catch (err) {
       alert('Approval failed');
     }

@@ -10,7 +10,6 @@ const corsOptions = {
   credentials: true
 };
 
-// ✅ Apply CORS to this router
 router.use(cors(corsOptions));
 router.use(express.json());
 
