@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `job_board` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `job_board`;
 -- MySQL dump 10.13  Distrib 8.0.42, for macos15 (arm64)
 --
 -- Host: localhost    Database: job_board
@@ -16,6 +14,39 @@ USE `job_board`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `job_applications`
+--
+
+DROP TABLE IF EXISTS `job_applications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `job_applications` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(100) DEFAULT NULL,
+  `last_name` varchar(100) DEFAULT NULL,
+  `address` text,
+  `email` varchar(150) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `skills` text,
+  `experience` text,
+  `education_status` enum('graduate','currently_graduating') DEFAULT NULL,
+  `resume_filename` varchar(255) DEFAULT NULL,
+  `submitted_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `job_applications`
+--
+
+LOCK TABLES `job_applications` WRITE;
+/*!40000 ALTER TABLE `job_applications` DISABLE KEYS */;
+INSERT INTO `job_applications` VALUES (1,'Teja','Pullabhotla','1234 riviersidde','tejaswibharadwajp@gmail.com','+1- 281-854-5360','and ​Interpersonal skills​ with a strong ability to excel through collaboration with','●Over 5 years​ of professional experience in managing web, IT and other projects​ in developing highly scalable modern web','graduate','1751214999852_TejaswiP_Resume.pdf','2025-06-29 16:36:39'),(2,'Tejaswi','Pullabhotla','3364 Ravinia Cir','tejaswibharadwajp@gmail.com','+1- 281-854-5360','and ​Interpersonal skills​ with a strong ability to excel through collaboration with','●Over 5 years​ of professional experience in managing web, IT and other projects​ in developing highly scalable modern web','graduate','1751215184525_TejaswiP_Resume.pdf','2025-06-29 16:39:44'),(3,'Teja','P','test123','test@gmail.com','+1- 281-854-5360','and ​Interpersonal skills​ with a strong ability to excel through collaboration with','●Over 5 years​ of professional experience in managing web, IT and other projects​ in developing highly scalable modern web','graduate','1751215254871_TejaswiP_Resume.pdf','2025-06-29 16:40:54'),(4,'Teja','P','test123','test@gmail.com','+1- 281-854-5360','and ​Interpersonal skills​ with a strong ability to excel through collaboration with','●Over 5 years​ of professional experience in managing web, IT and other projects​ in developing highly scalable modern web','graduate','1751215363427_TejaswiP_Resume.pdf','2025-06-29 16:42:43');
+/*!40000 ALTER TABLE `job_applications` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `jobs`
@@ -85,4 +116,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-27 22:04:30
+-- Dump completed on 2025-06-29 12:13:26
