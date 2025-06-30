@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 import {
   Container,
   Paper,
@@ -11,6 +12,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
+  const [error, setError] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -30,11 +33,13 @@ export default function LoginPage() {
       else if (res.data.role === 'company') navigate('/new');
       else navigate('/jobs');
     } catch (error) {
-      alert('Login failed');
+  setError('Login failed'); setSnackbarOpen(true);
     }
   };
 
   return (
+      <>
+      <ErrorSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} message={error} />
       <Container maxWidth="sm">
         <Paper elevation={3} sx={{ mt: 8, p: 4 }}>
           <Typography variant="h5" align="center" gutterBottom>
@@ -71,5 +76,7 @@ export default function LoginPage() {
           </Box>
         </Paper>
       </Container>
+      </>
+
   );
 }

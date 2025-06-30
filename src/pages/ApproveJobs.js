@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 import axios from 'axios';
 import {
   Container,
@@ -14,6 +15,8 @@ import {
 } from '@mui/material';
 
 export default function ApproveJobs() {
+  const [error, setError] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export default function ApproveJobs() {
   const fetchUnapprovedJobs = () => {
     axios.get('http://localhost:5001/approval', {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
         .then((res) => setJobs(res.data))
-        .catch(() => alert('Failed to load unapproved jobs.'));
+  setError('Failed to load unapproved jobs.'); setSnackbarOpen(true);
   };
 
   const handleApprove = async (jobId) => {
@@ -31,11 +34,13 @@ export default function ApproveJobs() {
       await axios.post(`http://localhost:5001/approval/${jobId}/approve`, {}, {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
       fetchUnapprovedJobs();
     } catch (err) {
-      alert('Approval failed');
+  setError('Approval failed'); setSnackbarOpen(true);
     }
   };
 
   return (
+      <>
+      <ErrorSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} message={error} />
       <Container sx={{ mt: 4 }}>
         <Typography variant="h4" gutterBottom>
           Approve Job Postings
@@ -90,5 +95,6 @@ export default function ApproveJobs() {
           ))}
         </Grid>
       </Container>
+      </>
   );
 }

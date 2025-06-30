@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 import {
     Card,
     CardContent,
@@ -14,6 +15,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function JobList() {
+  const [error, setError] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [jobs, setJobs] = useState([]);
     const navigate = useNavigate();
 
@@ -21,7 +24,7 @@ export default function JobList() {
         // calling Backend API to get all jobs
         axios.get('http://localhost:5001/jobs/all')
             .then(res => setJobs(res.data))
-            .catch(() => alert("Failed to fetch jobs"));
+  setError('Failed to fetch jobs'); setSnackbarOpen(true);
     }, []);
 
     const handleApply = (jobId) => {
@@ -29,6 +32,8 @@ export default function JobList() {
     };
 
     return (
+        <>
+      <ErrorSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} message={error} />
         <Container sx={{ mt: 4 }}>
             <Typography variant="h4" gutterBottom>
                 Approved Job Listings
@@ -83,5 +88,6 @@ export default function JobList() {
                 ))}
             </Grid>
         </Container>
+        </>
     );
 }

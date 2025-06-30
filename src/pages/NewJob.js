@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 import {
     Box,
     Button,
@@ -16,6 +17,8 @@ const paidOptions = ['Paid', 'Unpaid'];
 const locationOptions = ['Remote', 'Hybrid', 'On-site'];
 
 export default function JobPostForm() {
+  const [error, setError] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [formData, setFormData] = useState({
         company_logo: '',
         company_name: '',
@@ -34,14 +37,16 @@ export default function JobPostForm() {
     const handleSubmit = async () => {
         try {
             await axios.post('http://localhost:5001/jobs', formData, {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}});
-            alert('Job posted successfully!');
+  setError('Job posted successfully!'); setSnackbarOpen(true);
         } catch (error) {
             console.error(error);
-            alert('Error posting job');
+  setError('Error posting job'); setSnackbarOpen(true);
         }
     };
 
     return (
+        <>
+      <ErrorSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} message={error} />
         <Container maxWidth="md">
             <Paper elevation={3} sx={{padding: 4, mt: 5}}>
                 <Typography variant="h5" gutterBottom>
@@ -164,5 +169,6 @@ export default function JobPostForm() {
                 </Box>
             </Paper>
         </Container>
+        </>
     );
 }

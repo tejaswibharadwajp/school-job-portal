@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import ErrorSnackbar from '../components/ErrorSnackbar';
 import {
     Container,
     Typography,
@@ -14,6 +15,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function ApplyPage() {
+  const [error, setError] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
     const { jobId } = useParams();
 
     const [formData, setFormData] = useState({
@@ -73,12 +76,12 @@ export default function ApplyPage() {
                 educationStatus: parsed.educationStatus || '',
             }));
         } catch (err) {
-            alert('Resume parsing failed');
+  setError('Resume parsing failed'); setSnackbarOpen(true);
         }
     };
 
     const handleSubmit = async () => {
-        if (!resumeFile) return alert('Please upload a resume');
+  setError('Please upload a resume'); setSnackbarOpen(true);
 
         const submission = new FormData();
         Object.entries(formData).forEach(([key, value]) => submission.append(key, value));
@@ -91,11 +94,13 @@ export default function ApplyPage() {
             });
             navigate('/thank-you');
         } catch (err) {
-            alert('Submission failed');
+  setError('Submission failed'); setSnackbarOpen(true);
         }
     };
 
     return (
+        <>
+      <ErrorSnackbar open={snackbarOpen} onClose={() => setSnackbarOpen(false)} message={error} />
         <Container maxWidth="md">
             <Paper sx={{ p: 4, mt: 5 }}>
                 <Typography variant="h5" gutterBottom>
@@ -103,7 +108,7 @@ export default function ApplyPage() {
                 </Typography>
 
                 <Box component="form" noValidate>
-                    <Grid container spacing={2}>
+                    <Grid spacing={2} gridColumn={1} gridRow={4}>
                         <Grid item xs={12}>
                             <Button variant="outlined" component="label" fullWidth>
                                 Upload Resume (PDF)
@@ -178,5 +183,6 @@ export default function ApplyPage() {
                 </Box>
             </Paper>
         </Container>
+        </>
     );
 }
